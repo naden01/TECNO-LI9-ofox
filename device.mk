@@ -5,7 +5,7 @@
 # SPDX-License-Identifier: Apache-2.0
 #
 
-LOCAL_PATH := device/tecno/TECNO-LI9
+LOCAL_PATH := device/tecno/LI9
 
 # Enable Virtual A/B OTA
 ENABLE_VIRTUAL_AB := true
