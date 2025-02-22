@@ -7,6 +7,8 @@
 
 LOCAL_PATH := device/tecno/LI9
 
+BOARD_USES_VENDOR_BOOT := true
+
 # Enable Virtual A/B OTA
 ENABLE_VIRTUAL_AB := true
 $(call inherit-product, $(SRC_TARGET_DIR)/product/virtual_ab_ota/launch_with_vendor_ramdisk.mk)
@@ -86,8 +88,8 @@ PRODUCT_PACKAGES += \
 PRODUCT_USE_DYNAMIC_PARTITIONS := true
 
 # VNDK
-PRODUCT_TARGET_VNDK_VERSION := 34
+PRODUCT_TARGET_VNDK_VERSION := 32
 
 # API
-PRODUCT_SHIPPING_API_LEVEL := 34
+PRODUCT_SHIPPING_API_LEVEL := 32
 
