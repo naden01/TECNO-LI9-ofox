@@ -1,11 +1,13 @@
 #
-# Copyright (C) 2025 The Android Open Source Project
-# Copyright (C) 2025 SebaUbuntu's TWRP device tree generator
+# Copyright (C) 2024 The Android Open Source Project
+# Copyright (C) 2024 SebaUbuntu's TWRP device tree generator
 #
 # SPDX-License-Identifier: Apache-2.0
 #
 
 DEVICE_PATH := device/tecno/LI9
+
+TW_FORCE_SELINUX_PERMISSIVE := true
 
 # For building with minimal manifest
 ALLOW_MISSING_DEPENDENCIES                   := true
@@ -33,7 +35,7 @@ ENABLE_CPUSETS := true
 ENABLE_SCHEDBOOST := true
 
 # Assert
-TARGET_OTA_ASSERT_DEVICE := TECNO-LI9   
+TARGET_OTA_ASSERT_DEVICE := LI9
 
 # Bootloader
 TARGET_BOOTLOADER_BOARD_NAME := LI9
@@ -44,16 +46,17 @@ TARGET_USES_UEFI             := true
 BOARD_KERNEL_SEPARATED_DTBO := true
 
 # Kernel
-BOARD_RAMDISK_USE_LZ4        := true
-TARGET_NO_KERNEL             := true
-BOARD_BOOTIMG_HEADER_VERSION := 4
-BOARD_KERNEL_BASE            := 0x40078000
-BOARD_KERNEL_CMDLINE         := bootopt=64S3,32N2,64N2
-BOARD_PAGE_SIZE              := 4096
-BOARD_KERNEL_OFFSET          := 0x00008000
-BOARD_RAMDISK_OFFSET         := 0x11088000
-BOARD_TAGS_OFFSET            := 0x07c08000
-BOARD_DTB_OFFSET             := 0x07c08000
+BOARD_RAMDISK_USE_LZ4 := true
+TARGET_NO_KERNEL      := true
+
+BOARD_BOOT_HEADER_VERSION := 4
+BOARD_KERNEL_BASE    := 0x40078000
+BOARD_VENDOR_CMDLINE := bootopt=64S3,32N2,64N2
+BOARD_PAGE_SIZE      := 4096
+BOARD_KERNEL_OFFSET  := 0x00008000
+BOARD_RAMDISK_OFFSET := 0x11088000
+BOARD_TAGS_OFFSET    := 0x07c08000
+BOARD_DTB_OFFSET     := 0x07c08000
 
 BOARD_MKBOOTIMG_ARGS += --vendor_cmdline $(BOARD_VENDOR_CMDLINE)
 BOARD_MKBOOTIMG_ARGS += --pagesize $(BOARD_PAGE_SIZE) --board ""
@@ -84,14 +87,12 @@ BOARD_SUPER_PARTITION_GROUPS                  := tecno_dynamic_partitions
 BOARD_TECNO_DYNAMIC_PARTITIONS_PARTITION_LIST := system vendor product system_ext
 BOARD_TECNO_DYNAMIC_PARTITIONS_SIZE           := 9122611200 # TODO: Fix hardcoded value
 
-#TODO : is this right?
 # Partitions - file type
-PARTIONS_FILESYSTEM := erofs
 BOARD_PRODUCTIMAGE_FILE_SYSTEM_TYPE     := erofs
 BOARD_SYSTEMIMAGE_FILE_SYSTEM_TYPE      := ext4
 BOARD_SYSTEM_EXTIMAGE_FILE_SYSTEM_TYPE  := erofs
-BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE      := erofs
 BOARD_USERDATAIMAGE_FILE_SYSTEM_TYPE    := f2fs
+BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE      := erofs
 TARGET_USERIMAGES_USE_EXT4              := true
 TARGET_USERIMAGES_USE_F2FS              := true
 
@@ -109,7 +110,6 @@ BOARD_USES_GENERIC_KERNEL_IMAGE := true
 BOARD_HAS_NO_SELECT_BUTTON      := true
 TARGET_RECOVERY_PIXEL_FORMAT    := RGBX_8888
 BOARD_SUPPRESS_SECURE_ERASE     := true
-# TODO : where is this
 TARGET_RECOVERY_FSTAB           := $(DEVICE_PATH)/recovery/root/system/etc/recovery.fstab
 
 # Properties
@@ -133,14 +133,13 @@ VENDOR_SECURITY_PATCH           := $(PLATFORM_SECURITY_PATCH)
 BOOT_SECURITY_PATCH             := $(PLATFORM_SECURITY_PATCH)
 
 # Verified Boot
-BOARD_AVB_ENABLE := true
-BOARD_AVB_MAKE_VBMETA_IMAGE_ARGS += --flags 3
+BOARD_AVB_ENABLE                           := true
+BOARD_AVB_MAKE_VBMETA_IMAGE_ARGS           += --flags 3
 BOARD_AVB_ROLLBACK_INDEX                   := $(PLATFORM_SECURITY_PATCH_TIMESTAMP)
 BOARD_AVB_RECOVERY_ALGORITHM               := SHA256_RSA4096
 BOARD_AVB_RECOVERY_KEY_PATH                := external/avb/test/data/testkey_rsa4096.pem
 BOARD_AVB_RECOVERY_ROLLBACK_INDEX          := $(PLATFORM_SECURITY_PATCH_TIMESTAMP)
 BOARD_AVB_RECOVERY_ROLLBACK_INDEX_LOCATION := 1
-
 
 # Screen
 TARGET_SCREEN_WIDTH   := 1080
@@ -151,11 +150,14 @@ TARGET_SCREEN_DENSITY := 480
 TW_EXTRA_LANGUAGES            := true
 TARGET_USES_MKE2FS            := true
 
-TW_FRAMERATE          := 60
+TW_FRAMERATE          := 90
 TW_BRIGHTNESS_PATH    := "/sys/class/leds/lcd-backlight/brightness"
-TW_MAX_BRIGHTNESS     := 2047
-TW_DEFAULT_BRIGHTNESS := 1200
+TW_MAX_BRIGHTNESS     := 255
+TW_DEFAULT_BRIGHTNESS := 100
 TW_NO_SCREEN_BLANK    := true
+TARGET_LD_SHIM_LIBS := libminuitwrp
+TW_NO_CPU_TEMP := true
+
 
 # Tools
 TW_INCLUDE_FB2PNG       := true
@@ -185,10 +187,20 @@ TW_EXCLUDE_DEFAULT_USB_INIT := true
 # USB OTG
 TW_USB_STORAGE := true
 
+#MTP
+TW_HAS_MTP := true
+TW_MTP_DEVICE := "/dev/usb-ffs/mtp"
+TW_INCLUDE_LIBUSB := true
+
+#VIBRA
+TW_HAS_VIBRATION := true
+TW_NO_HAPTICS := false
+TW_HAPTICS_PATH := "/sys/class/leds/vibrator_single/activate"
+TW_HAPTICS_DURATION_PATH := "/sys/class/leds/vibrator_single/duration"
+
 # Vendor Boot
-#BOARD_EXCLUDE_KERNEL_FROM_RECOVERY_IMAGE     := true
+BOARD_EXCLUDE_KERNEL_FROM_RECOVERY_IMAGE     := true
 BOARD_MOVE_RECOVERY_RESOURCES_TO_VENDOR_BOOT := true
-BOARD_INCLUDE_RECOVERY_RAMDISK_IN_VENDOR_BOOT := true
 
 # Init
 TARGET_INIT_VENDOR_LIB         := libinit_LI9
@@ -198,6 +210,5 @@ TARGET_RECOVERY_DEVICE_MODULES := libinit_LI9
 TW_LOAD_VENDOR_BOOT_MODULES := true
 
 # Version
-TW_DEVICE_VERSION := shahqufi | LI9
-
+TW_DEVICE_VERSION := Shah_qufi | LI9
 
