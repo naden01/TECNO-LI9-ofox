@@ -24,4 +24,3 @@ system_ext			/system_ext		ext4		ro																	wait,slotselect,logical
 
 # Use tranfs as cache
 /dev/block/by-name/tranfs	/cache			ext4		noatime,nosuid,nodev,discard														wait,check,formattable
-
