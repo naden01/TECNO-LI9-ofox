@@ -4,7 +4,7 @@
         vendor/transsion/hardware/interfaces/transsion_device_framework_matrix.xml
         vendor/transsion/tranfac/TranfacSys/aidl/device_framework_matrix_tranfacaidl.xml
 -->
-<compatibility-matrix version="4.0" type="framework">
+<compatibility-matrix version="7.0" type="framework">
     <hal format="aidl" optional="true">
         <name>android.hardware.biometrics.fingerprint</name>
         <version>3</version>
@@ -726,6 +726,8 @@
     </hal>
     <hal format="aidl" optional="true">
         <name>vendor.mediatek.hardware.mbrain</name>
+        <version>1</version>
+        <version>2</version>
         <interface>
             <name>IMBrain</name>
             <instance>default</instance>
@@ -1023,6 +1025,13 @@
         </interface>
     </hal>
     <hal format="aidl" optional="true">
+        <name>vendor.mediatek.hardware.nps.nos.fastswitch</name>
+        <interface>
+            <name>INativeFastSwitch</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
+    <hal format="aidl" optional="true">
         <name>vendor.mediatek.hardware.nvram</name>
         <interface>
             <name>INvram</name>
@@ -1086,7 +1095,7 @@
     </hal>
     <hal format="aidl" optional="true">
         <name>vendor.mediatek.hardware.pq_aidl</name>
-        <version>1-6</version>
+        <version>1-7</version>
         <interface>
             <name>IPictureQuality_AIDL</name>
             <instance>default</instance>
@@ -1128,14 +1137,6 @@
         <name>vendor.mediatek.hardware.rcs</name>
         <interface>
             <name>IRcs</name>
-            <instance>default</instance>
-        </interface>
-    </hal>
-    <hal format="hidl" optional="true">
-        <name>vendor.mediatek.hardware.sfs</name>
-        <version>1.0</version>
-        <interface>
-            <name>ISFs</name>
             <instance>default</instance>
         </interface>
     </hal>
