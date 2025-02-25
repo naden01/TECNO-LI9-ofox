@@ -192,12 +192,6 @@ TW_HAS_MTP := true
 TW_MTP_DEVICE := "/dev/usb-ffs/mtp"
 TW_INCLUDE_LIBUSB := true
 
-#VIBRA
-TW_HAS_VIBRATION := true
-TW_NO_HAPTICS := false
-TW_HAPTICS_PATH := "/sys/class/leds/vibrator_single/activate"
-TW_HAPTICS_DURATION_PATH := "/sys/class/leds/vibrator_single/duration"
-
 # Vendor Boot
 BOARD_EXCLUDE_KERNEL_FROM_RECOVERY_IMAGE     := true
 BOARD_MOVE_RECOVERY_RESOURCES_TO_VENDOR_BOOT := true
