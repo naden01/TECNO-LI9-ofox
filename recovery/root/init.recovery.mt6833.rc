@@ -1,6 +1,7 @@
 import /tee.rc
 import /trustonic.rc
 import /init.custom.rc
+import /vibrator-mtk-default.rc
 
 # Set SELinux to Permissive
 on early-init
